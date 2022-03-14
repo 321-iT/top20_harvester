@@ -25,7 +25,7 @@ for i in coc.players:
     j += 1
 res = sorted(list(res.items()))
 try:
-    with open("points.cfg", 'r', encoding='UTF8') as f:
+    with open("score.cfg", 'r', encoding='UTF8') as f:
         reader = csv.reader(f)
         j = 0
         for i in reader:
@@ -35,11 +35,11 @@ try:
             res[j].append(i[1])
             j += 1
 except FileNotFoundError:
-    print("No points configuration file, going to next step")
+    print("No score configuration file, going to next step")
     pass
 except PermissionError:
-    print("Cannot open the configuration file")
-    print("\tThis harvesting wont output points in the result")
+    print("Cannot open the score configuration file")
+    print("\tThis harvesting wont output score in the result")
 try:
     with open("pseudo.cfg", 'r', encoding='UTF8') as f:
         reader = csv.reader(f)
@@ -53,9 +53,7 @@ except FileNotFoundError:
     print("No pseudo configuration file, going to next step")
     pass
 except PermissionError:
-    print("Cannot open the configuration file")
-    print("\tThis harvesting wont output points in the result")
-
+    print("Cannot open the pseudo configuration file")
 try:
     with open(argv[2] + ".csv", 'w', encoding='UTF8') as f:
         writer = csv.writer(f)
