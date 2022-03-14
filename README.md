@@ -20,9 +20,23 @@ Example:
 This command will output the top 20, and put the result in 'round1.csv'
 
 
+If you want to add points in the final ranking, in order to do this you have to create "points.cfg".
 
-To add later :
 
-- "map" that is used to transform pseudo into logins based on manually done configuration file
-- on the same basis, adds in csv output a field corresponding to the number of points
-- create a script that takes multiple .csv files and agregate them into one (maybe this already exist) in order to produce the final ranking (to do this i need the third "score" field in all rounds.csv outputs, and a configuration file that indicates a number of points for each place in the ranking)
+It *has* to be formatted like this:
+
+//PLACE, POINTS
+1,100
+2,90
+3,80
+...
+
+On the exact same basis, you have the pseudo.cfg to map a CodinGame pseudo to a login.
+
+It *has* to be formatted the same way:
+
+//CodinGame Pseudo, login
+lmartinUwU,lmartin
+dArkGam3rxXx,nfascia
+lostarkaddict,pdubois
+...

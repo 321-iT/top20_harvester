@@ -23,7 +23,39 @@ for i in coc.players:
         break
     res[i.rank] = i.pseudo
     j += 1
-res = sorted(res.items())
+res = sorted(list(res.items()))
+try:
+    with open("points.cfg", 'r', encoding='UTF8') as f:
+        reader = csv.reader(f)
+        j = 0
+        for i in reader:
+            if j >= 20:
+                break
+            res[j] = list(res[j])
+            res[j].append(i[1])
+            j += 1
+except FileNotFoundError:
+    print("No points configuration file, going to next step")
+    pass
+except PermissionError:
+    print("Cannot open the configuration file")
+    print("\tThis harvesting wont output points in the result")
+try:
+    with open("pseudo.cfg", 'r', encoding='UTF8') as f:
+        reader = csv.reader(f)
+        j = 0
+        for pseudo in reader:
+            for i in range(len(res)):
+                if res[i][1] == pseudo[0]:
+                    res[i][1] = pseudo[1]
+                i += 1
+except FileNotFoundError:
+    print("No pseudo configuration file, going to next step")
+    pass
+except PermissionError:
+    print("Cannot open the configuration file")
+    print("\tThis harvesting wont output points in the result")
+
 try:
     with open(argv[2] + ".csv", 'w', encoding='UTF8') as f:
         writer = csv.writer(f)
