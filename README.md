@@ -1,7 +1,7 @@
 # Usage
 
-git clone https://github.com/321-iT/top20_harvester.git  
-cd top20\_harvester
+	git clone https://github.com/321-iT/top20_harvester.git  
+	cd top20\_harvester
 
 If not installed:
 
