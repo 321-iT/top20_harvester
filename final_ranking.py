@@ -24,7 +24,7 @@ for file in argv:
                         error = 1
                 if error != 1:
                     res.append([elem[1]])
-                    error = 0
+                error = 0
     except FileNotFoundError:
         print("\n\tFile {} not found, trying the next one\n".format(file))
         pass
