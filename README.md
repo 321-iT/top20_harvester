@@ -9,7 +9,7 @@ If not installed:
 	pip3 install csv
 	pip3 install sys
 
-#Fast use
+<strong>Fast use</strong>
 
 To launch the script:
 
@@ -17,6 +17,7 @@ To launch the script:
 
 With "contestX" being the contest handle (see below for details)
 
+<strong>Detailed use</strong>
 
 To launch the script:
 
