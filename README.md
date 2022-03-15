@@ -1,7 +1,8 @@
-#Usage
+# Usage
 
 	git clone https://github.com/321-iT/top20_harvester.git  
 	cd top20\_harvester
+	chmod +x all_in_1.sh
 
 If not installed:
 
@@ -9,15 +10,19 @@ If not installed:
 	pip3 install csv
 	pip3 install sys
 
-<strong>Fast use</strong>
+## Fast usage
 
 To launch the script:
 
 	./all_in_1.sh "contest1" "contest2" [...] "contestN"
 
-With "contestX" being the contest handle (see below for details)
+With "contestX" being the contest handle.
 
-<strong>Detailed use</strong>
+**The contest handle is the last part of the URL of the contest. Should be 39 characters long**
+
+This will print every contest top 20, put the result in roundX.csv file (X being the number of contest in the order the script receveived it), and produce a final ranking based on all previous ones, print it and put it in "ranking.csv".
+
+### Detailed use
 
 To launch the script:
 
@@ -37,7 +42,7 @@ In order to do this you have to use or create "score.cfg".
 
 "score.cfg" is formatted as below:
 
-It <strong>has</strong> to be formatted like this:
+It **has** to be formatted like this:
 
 	//place,points
 	1,100
@@ -47,7 +52,7 @@ It <strong>has</strong> to be formatted like this:
 
 On the exact same basis, you have the pseudo.cfg to map a CodinGame pseudo to a login.
 
-It <strong>has</strong> to be formatted the same way:
+It **has** to be formatted the same way:
 
 	//CodinGame Pseudo, login
 	lmartinUwU,lmartin
@@ -55,7 +60,7 @@ It <strong>has</strong> to be formatted the same way:
 	lostarkaddict,pdubois
 	...
 
-Once you have finished all rounds, you have a final script   (final_ranking.sh) that will take all the "roundsX.csv" files and produce one final ranking based on the score of each person for each round.
+Once you have finished all rounds, you have a final script   (final_ranking.py) that will take all the "roundsX.csv" files and produce one final ranking based on the score of each person for each round.
 
 You can launch it like this:
 
