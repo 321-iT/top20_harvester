@@ -1,16 +1,16 @@
-# Usage
+# **Usage**
+
+To install the script:
 
 	git clone https://github.com/321-iT/top20_harvester.git  
 	cd top20\_harvester
 	chmod +x all_in_1.sh
 
-If not installed:
+Needed libs:
 
 	pip3 install codingame
 	pip3 install csv
 	pip3 install sys
-
-## Fast usage
 
 To launch the script:
 
@@ -18,13 +18,18 @@ To launch the script:
 
 With "contestX" being the contest handle.
 
-**The contest handle is the last part of the URL of the contest. Should be 39 characters long**
+**The contest handle is the last part of the URL of the contest. Should be around 39 characters long.**
 
-This will print every contest top 20, put the result in roundX.csv file (X being the number of contest in the order the script receveived it), and produce a final ranking based on all previous ones, print it and put it in "ranking.csv".
+Example:
 
-### Detailed use
+>./all_in_1.sh 2243934bca01cf9496f225c8b0b3373fa53f2c9   	[...]
 
-To launch the script:
+Will produce 1 round file for each contest, and one ranking.csv file with final score.
+
+
+## **Detailed use**
+
+To launch the harvester script:
 
 	python3 harvest.py "Contest handle" "output file name" (the .csv is added automatically)
 
