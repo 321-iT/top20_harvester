@@ -1,4 +1,4 @@
-# Usage
+#Usage
 
 	git clone https://github.com/321-iT/top20_harvester.git  
 	cd top20\_harvester
@@ -8,6 +8,15 @@ If not installed:
 	pip3 install codingame
 	pip3 install csv
 	pip3 install sys
+
+#Fast use
+
+To launch the script:
+
+	./all_in_1.sh "contest1" "contest2" [...] "contestN"
+
+With "contestX" being the contest handle (see below for details)
+
 
 To launch the script:
 

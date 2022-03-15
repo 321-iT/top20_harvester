@@ -26,6 +26,8 @@ for file in argv:
                     res.append([elem[1]])
                 error = 0
     except FileNotFoundError:
+        if file == "./round*":
+            exit("No \"roundX.csv\" files found, exiting")
         print("\n\tFile {} not found, trying the next one\n".format(file))
         pass
     except PermissionError:
