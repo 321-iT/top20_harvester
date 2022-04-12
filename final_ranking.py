@@ -24,8 +24,7 @@ def init_res():
                         if elem[1] == i[0]:
                             error = 1
                     if error != 1:
-                        res.append([elem[1]])
-                        coalitions.append([elem[3], elem[2]])
+                        res.append([elem[1], elem[3]])
                     error = 0
         except FileNotFoundError:
             if file == "./round*":
@@ -34,8 +33,7 @@ def init_res():
             pass
         except PermissionError:
             print("Cannot open file {}, trying the next one".format(file))
-        
-    return res, coalitions
+    return res
 
 def read_rounds(res):
     for file in argv:
@@ -57,24 +55,29 @@ def read_rounds(res):
 def compile_and_sort_ranking(res):
     for elem in res:
         score = 0
-        for i in elem[1:]:
+        for i in elem[2:]:
             score += int(i)
-        del(elem[2:])
+        del(elem[3:])
+        elem[2] = elem[1]
         elem[1] = score
     res = my_sort(res)
     i = 1
     for elem in res:
-        score = elem[1]
-        name = elem[0] 
+        score = elem[2]
+        name = elem[0]
+        coa = elem[1]
         elem[0] = i
         elem[1] = name
+        elem[2] = coa
         elem.append(score)
         i += 1
 
-def compile_and_sort_coalitions(coalitions):
+def compile_and_sort_coalitions(res):
     final = {'The Alliance' : 0, 'The Assembly' : 0, 'The Order' : 0, 'The Federation' : 0}
-    for elem in coalitions:
-        final[elem[0]] += int(elem[1])
+    for elem in res:
+        if (elem[3] == "Unknown user or Coalition"):
+            continue
+        final[elem[3]] += int(elem[2])
     coalitions = []
     for i in final.items():
         coalitions.append([i[0], i[1]])
@@ -90,19 +93,41 @@ def ranking_to_csv(res):
     except PermissionError:
         print("\nCannot open \"{}.csv\": the output cant be saved\n".format(argv[2]))
         error = 1
+    
+    return error
+
+def print_ranking(res):
     for i in res:
-        print(i[0], ":", "{} ({})".format(i[1], i[2]))
-    if (error != 1):
-        print("You will find the final ranking in \"ranking.csv\"")
+        if (int(i[2]) == 0):
+            break
+        spaces_name = ""
+        spaces_number = ""
+        spaces_score = ""
+        if (len(i[1]) < 8):
+            for j in range(8 - len(i[1])):
+                spaces_name += " "
+        if (i[0] < 10):
+            spaces_number = " "
+        if (i[2] < 1000):
+            spaces_score = " "
+        print(i[0],":",spaces_number,"{}{} - {} {}- ({})".format(i[1],spaces_name,i[2],spaces_score,i[3]))
+
+def print_coa(coalitions):
+    print(" == Coalitions ranking : == \n")
+    for elem in coalitions:
+        print("\t{} : {} points".format(elem[0], elem[1]))
 
 if __name__ == "__main__":
     try:
         argv = argv[1:]
-        res, coalitions = init_res()
+        res = init_res()
         read_rounds(res)
         compile_and_sort_ranking(res)
-        ranking_to_csv(res)
-        coalitions = compile_and_sort_coalitions(coalitions)
-        print(coalitions)
+        error = ranking_to_csv(res)
+        print_ranking(res)
+        coalitions = compile_and_sort_coalitions(res)
+        print_coa(coalitions)
+        if (error != 1):
+            print("\nYou will find the final ranking in \"ranking.csv\"")
     except KeyboardInterrupt:
         exit()

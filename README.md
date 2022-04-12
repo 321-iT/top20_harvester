@@ -3,14 +3,16 @@
 To install the script:
 
 	git clone https://github.com/321-iT/top20_harvester.git  
-	cd top20\_harvester
-	chmod +x all_in_1.sh
-
-Needed libs:
 
 	pip3 install codingame
 	pip3 install csv
 	pip3 install sys
+	pip3 install -r requirements.txt
+
+Set up API:
+
+	export API42_ID=xxx
+	export API42_SECRET=xxx
 
 To launch the script:
 

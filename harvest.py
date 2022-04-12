@@ -23,6 +23,15 @@ def init_list():
 		j += 1
 	res = sorted(list(res.items()))
 
+	j = 0
+	for i in coc.players:
+		if j >= 20:
+			break
+		res[j] = list(res[j])
+		if (i.score == 0):
+			res[j].append('0')
+		j += 1
+
 	return res
 
 def map_score_and_pseudo(res):
@@ -33,7 +42,8 @@ def map_score_and_pseudo(res):
 			for i in reader:
 				if j >= 20:
 					break
-				res[j] = list(res[j])
+				if (len(res[j]) > 2):
+					continue
 				res[j].append(i[1])
 				j += 1
 	except FileNotFoundError:
@@ -68,7 +78,8 @@ def map_coalitions(res, api):
 		for j in coalition:
 			if (j['id'] in range(45,49) or j['id'] in range(1,5)):
 				res[i].append(j['name'])
-
+		if (len(coalition) == 0):
+			res[i].append("Unknown user or Coalition")
 def list_to_csv(res):
 	try:
 		with open(argv[2] + ".csv", 'w', encoding='UTF8') as f:
@@ -82,7 +93,7 @@ def list_to_csv(res):
 
 def print_res(res, error):
 	for i in res:
-		print(i[0], ":", i[1])
+		print("{} : {} ({})".format(i[0], i[1], i[3]))
 	if (error != 1):
 		print("You will find this round top 20 in \"{}.csv\"".format(argv[2]))
 
