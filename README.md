@@ -4,9 +4,6 @@ To install the script:
 
 	git clone https://github.com/321-iT/top20_harvester.git  
 
-	pip3 install codingame
-	pip3 install csv
-	pip3 install sys
 	pip3 install -r requirements.txt
 
 Set up API:
