@@ -15,21 +15,19 @@ def init_list():
 		print("Contest not found. Please check the handle you entered (--h for help)")
 		exit()
 	res = {};
-	j = 0
 	for i in coc.players:
-		if j >= 20:
-			break
 		res[i.rank] = i.pseudo
-		j += 1
 	res = sorted(list(res.items()))
 
 	j = 0
 	for i in coc.players:
-		if j >= 20:
+		if (j >= len(res)):
 			break
 		res[j] = list(res[j])
 		if (i.score == 0):
-			res[j].append('0')
+			res[j].append(0)
+		elif (j >= 20):
+			res[j].append(str(i.score))
 		j += 1
 
 	return res
@@ -39,9 +37,8 @@ def map_score_and_pseudo(res):
 		with open("score.cfg", 'r', encoding='UTF8') as f:
 			reader = csv.reader(f)
 			j = 0
+			score = 0
 			for i in reader:
-				if j >= 20:
-					break
 				if (len(res[j]) > 2):
 					continue
 				res[j].append(i[1])
@@ -95,7 +92,7 @@ def print_res(res, error):
 	for i in res:
 		print("{} : {} ({})".format(i[0], i[1], i[3]))
 	if (error != 1):
-		print("You will find this round top 20 in \"{}.csv\"".format(argv[2]))
+		print("You will find this round scoreboard in \"{}.csv\"".format(argv[2]))
 
 
 if __name__ == "__main__":
@@ -110,7 +107,9 @@ if __name__ == "__main__":
 		map_score_and_pseudo(res)
 		map_coalitions(res, api)
 		error = list_to_csv(res)
-		print_res(res, error)
+		if (error != 1):
+			print("You will find this round scoreboard in \"{}.csv\"".format(argv[2]))
+		#print_res(res, error)
 		exit()
 	except KeyboardInterrupt:
 		exit()
