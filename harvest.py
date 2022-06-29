@@ -15,8 +15,10 @@ def init_list():
 		print("Contest not found. Please check the handle you entered (--h for help)")
 		exit()
 	res = {};
+	j = 1
 	for i in coc.players:
-		res[i.rank] = i.pseudo
+		res[j] = i.pseudo
+		j += 1
 	res = sorted(list(res.items()))
 
 	j = 0
@@ -27,7 +29,7 @@ def init_list():
 
 	j = 0
 	for i in coc.players:
-		if j >= 20 and j < len(res):
+		if j < len(res):
 			res[j].append(i.score)
 		j += 1
 	return res
@@ -40,9 +42,10 @@ def map_score_and_pseudo(res):
 			for i in reader:
 				if j >= 20:
 					break
-				if (len(res[j]) > 2):
-					continue
-				res[j].append(i[1])
+				if res[j][2] == 0:
+					res[j][2] = '0'
+				else:
+					res[j][2] = i[1]
 				j += 1
 	except FileNotFoundError:
 		print("No score configuration file, going to next step")
