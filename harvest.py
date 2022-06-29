@@ -15,23 +15,21 @@ def init_list():
 		print("Contest not found. Please check the handle you entered (--h for help)")
 		exit()
 	res = {};
-	j = 0
 	for i in coc.players:
-		if j >= 20:
-			break
 		res[i.rank] = i.pseudo
-		j += 1
 	res = sorted(list(res.items()))
 
 	j = 0
 	for i in coc.players:
-		if j >= 20:
-			break
-		res[j] = list(res[j])
-		if (i.score == 0):
-			res[j].append('0')
+		if j < len(res):
+			res[j] = list(res[j])
 		j += 1
 
+	j = 0
+	for i in coc.players:
+		if j >= 20 and j < len(res):
+			res[j].append(i.score)
+		j += 1
 	return res
 
 def map_score_and_pseudo(res):
@@ -93,7 +91,7 @@ def list_to_csv(res):
 
 def print_res(res, error):
 	for i in res:
-		print("{} : {} ({})".format(i[0], i[1], i[3]))
+		print("{} : {} ({})".format(i[0], i[1], i[3])) # LAST i[3] TO PUT
 	if (error != 1):
 		print("You will find this round top 20 in \"{}.csv\"".format(argv[2]))
 
