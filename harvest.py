@@ -5,6 +5,8 @@ from sys import argv
 from api import *
 
 def init_list():
+	global nb_player
+	nb_player = 0
 	client = codingame.Client()
 	try:
 		coc = client.get_clash_of_code(argv[1])
@@ -20,6 +22,7 @@ def init_list():
 		res[j] = i.pseudo
 		j += 1
 	res = sorted(list(res.items()))
+	nb_player = j - 1
 
 	j = 0
 	for i in coc.players:
@@ -35,12 +38,13 @@ def init_list():
 	return res
 
 def map_score_and_pseudo(res):
+	global nb_player
 	try:
 		with open("score.cfg", 'r', encoding='UTF8') as f:
 			reader = csv.reader(f)
 			j = 0
 			for i in reader:
-				if j >= 20:
+				if j >= 20 or j >= nb_player:
 					break
 				if res[j][2] == 0:
 					res[j][2] = '0'
